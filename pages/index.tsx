@@ -280,6 +280,13 @@ const PageContent = () => {
     setIsOwnerModalOpen(true);
   };
 
+  function shortenAddress(address: any) {
+    if (address.length > 10) {
+      return address.slice(0, 6) + '...' + address.slice(-4);
+    }
+    return address;
+  }
+
 
   return (
     <>
@@ -316,7 +323,9 @@ const PageContent = () => {
               {selectedBlock ? (
                 <>
                   <h2>solmatch #{selectedBlockNumber}</h2>
-                  <p>owner: <button onClick={() => handleOwnerClick(selectedBlock.owner)} style={{ background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer' }}>{selectedBlock.owner}</button></p>
+                  <p>owner: <button onClick={() => handleOwnerClick(selectedBlock.owner)} style={{ background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer' }}>
+  {shortenAddress(selectedBlock.owner)}
+</button></p>
                   <p>stiiks: {selectedBlock.stiiksCount}</p>
                   <p>hdi: {calculateHDI(selectedBlock.stiiksCount, selectedBlock.airPodsCount, selectedBlock.airPodsProCount)}</p>
                 </>
