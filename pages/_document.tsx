@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <meta property="og:type" content="website" />
       <meta property="og:title"
-        content="stiiks real state simulator pro" />
+        content="stiiks real estate simulator pro" />
       <meta
         property="og:description"
         content="simple is best"

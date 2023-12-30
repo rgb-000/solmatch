@@ -44,7 +44,10 @@ h1 {
   font-family: "AlteHaasBold";
   font-size: 36px;
   @media screen and (hover: none) {
-    font-size: 20px!important;
+    font-size: 22px;
+    display: flex;
+    line-height: 24px;
+    max-width: 90vw;
   }
 }
 
@@ -230,4 +233,23 @@ a {
     @media screen and (hover: none) {
       display: none!important;
     }
+ }
+ h2 {
+  font-weight: bold !important;
+ }
+
+ .appbar {
+  flex-direction: row;
+
+  @media screen and (hover: none) {
+    flex-direction: column-reverse;
+    gap: 10px;
+    margin-top: 40px;
+  }
+ }
+
+ .appbar img {
+  @media screen and (hover: none) {
+    max-height: 20px;
+  }
  }

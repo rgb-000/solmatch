@@ -33,13 +33,13 @@ const NavLink: React.FC<NavLinkProps> = ({ children, href }) => {
 
 const Links = () => {
   return (
-    <Flex justifyContent="space-between!important" width="95vw">
+    <Flex justifyContent="space-between!important" width="95vw" display="flex" className='appbar'>
       <NavLink href='/'>
-        <h1>stiiks real state simulator pro</h1>
+        <h1>stiiks real estate simulator pro</h1>
       </NavLink>
-      <HStack spacing={6} display={{ base: 'none', md: 'flex' }}>
+      <HStack spacing={6}>
       <NavLink href='https://stiiks.xyz/'>
-        <h1>stiiks.xyz</h1>
+        <h2>stiiks.xyz</h2>
       </NavLink>
         <Link target='_blank' href='https://stiiks.social/'>
           <img src="/social.png" style={{ height: '32px', imageRendering: 'pixelated'}}/>
