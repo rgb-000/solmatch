@@ -43,6 +43,9 @@
 h1 {
   font-family: "AlteHaasBold";
   font-size: 36px;
+  @media screen and (hover: none) {
+    font-size: 20px!important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -68,6 +71,9 @@ cursor: grab;
 position: fixed;
 padding: 30px;
 font-size: 16px;
+@media screen and (hover: none) {
+  font-size: 12px!important;
+}
 }
 
 html,
@@ -133,6 +139,9 @@ input#WalletDest::placeholder, input#WalletDest {
   font-size: 16px;
   position: fixed;
   background-color: var(--color-b);
+  @media screen and (hover: none) {
+    font-size: 12px!important;
+  }
 }
 
 ::placeholder {

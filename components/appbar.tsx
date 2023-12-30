@@ -37,7 +37,7 @@ const Links = () => {
       <NavLink href='/'>
         <h1>stiiks real state simulator pro</h1>
       </NavLink>
-      <HStack spacing={6}>
+      <HStack spacing={6} display={{ base: 'none', md: 'flex' }}>
       <NavLink href='https://stiiks.xyz/'>
         <h1>stiiks.xyz</h1>
       </NavLink>
@@ -64,7 +64,7 @@ export const AppBar: React.FC = () => {
   return (
     <>
       <Box bg={'var(--color-b)'} fontSize={'16px'} px={4} margin={3} minW={'100vw'}>
-        <Flex h={10} maxH={10} alignItems={'right'} justifyContent={'space-between'}>
+        <Flex className={'navbar'} h={10} maxH={10} alignItems={'right'} justifyContent={'space-between'}>
 
           <HStack as={'nav'} spacing={0} display={{ base: 'flex', md: 'flex' }}>
             <Links />
