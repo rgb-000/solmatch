@@ -3,20 +3,21 @@ import { Html, Head, Main, NextScript } from 'next/document'
 export default function Document() {
   return (
     <Html lang="en">
-       <meta property="og:type" content="website" />
-        <meta property="og:title" />
-        <meta
-          property="og:description"
-          content="Website is based on MarkSackerbers work"
-        />
-        <meta name="description" content="Website is based on MarkSackerbers work" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title"
+        content="stiiks real state simulator pro" />
+      <meta
+        property="og:description"
+        content="simple is best"
+      />
+      <meta name="description" content="is" />
 
-        <meta
-          property="og:image"
-        />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>suns cNFT machine</title>
-        <link rel="icon" href="/favicon.ico" />
+      <meta
+        property="og:image"
+      />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>suns cNFT machine</title>
+      <link rel="icon" href="/favicon-32x32.png" />
       <Head />
       <body>
         <Main />
