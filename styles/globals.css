@@ -1,0 +1,224 @@
+@font-face {
+  font-family: 'PixelMecha';
+  src: url('/fonts/PixelMecha.ttf') format('truetype'), url('/fonts/PixelMecha.eot#iefix') format('embedded-opentype'), url('/fonts/PixelMecha.woff') format('woff'), url('/fonts/PixelMecha.svg') format('svg');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'AlteHaas';
+  src: url('/fonts/AlteHaasGroteskRegular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+
+}
+@font-face {
+  font-family: 'FixedSys';
+  src: url('/fonts/FSEX300.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+
+}
+@font-face {
+  font-family: 'AlteHaasBold';
+  src: url('/fonts/AlteHaasGroteskBold.ttf') format('truetype');
+  font-style: bold;
+  font-weight: bold;
+}
+
+:root {
+  --color-a: rgb(20, 20, 20);
+  --color-b: white/*#c4f0c2*/;
+  --chakra-colors-green-500: rgb(37, 191, 52)!important;
+  --font-mono: monospace;
+}
+
+
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-b);  }
+}
+
+h1 {
+  font-family: "AlteHaasBold";
+  font-size: 36px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-b);  }
+}
+
+.highlightedMatch pre {
+  color: blue;
+}
+.map {
+border-top: var(--color-a) 1px dashed;
+position: center;
+align-items: center;
+align-content: center;
+justify-items: center;
+background-color: var(--color-b);
+min-width: 100vw!important;
+min-height: calc(92vh - 120px);
+margin: 120px 0;
+cursor: grab;
+position: fixed;
+padding: 30px;
+font-size: 16px;
+}
+
+html,
+body {
+
+  font-size: 20px;
+  white-space: pre; 
+  color: var(--color-a);
+  background-color: var(--color-b);
+}
+
+* {
+  box-sizing: border-box;
+  font-weight: 300 !important;
+  font-family: var(--font-mono) ;
+  color: var(--color-a);
+  padding: 0;
+  margin: 0;
+  
+}
+
+pre {
+  font-family: var(--font-mono);
+  line-height: 0.99rem;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  user-select: none;
+  /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE 10+ */
+
+}
+.invisible {
+  background: none;
+}
+
+.wallet-adapter-dropdown-list-item:not([disabled]):hover {
+  background-color: var(--color-a) !important;
+  color: var(--color-b) !important;
+}
+
+.wallet-adapter-dropdown {
+  border-radius: 8px;
+}
+
+button.wallet-adapter-button {
+  background-color: var(--color-b) !important;
+  border-radius: 6px !important;
+}
+input#WalletDest::placeholder, input#WalletDest {
+  text-align: center;
+  }
+  
+
+.details {
+  min-width: fit-content;
+  margin: 0px 0px 0px 30px;
+  font-size: 16px;
+  position: fixed;
+  background-color: var(--color-b);
+}
+
+::placeholder {
+  color: var(--color-a) !important;
+}
+
+/* example: override wallet button style */
+.wallet-adapter-button {
+  background-color: #2b2b2b;
+  color: var(--color-a);
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background-color: #707070;
+  color: var(--color-a);
+}
+
+.wallet-adapter-button {
+  white-space: nowrap;
+}
+
+
+.chakra-card, .css-1idwstw {
+  color: var(--color-a) !important;
+  background: none!important;
+
+}
+
+.chakra-text {
+  color: var(--color-a) !important;
+}
+
+.chakra-button {
+  background-color: var(--color-a)!important;
+  border-radius: 6px !important;
+  color: var(--color-b) !important;
+}
+
+.chakra-button:disabled, .chakra-button:disabled:hover {
+  background-color: #433e36 !important;
+  color:  var( --color-b)!important;
+}
+
+.chakra-button:hover
+{background-color: #1e606e!important;
+ color: #c4f0c2;
+
+}
+
+.search-bar {
+  display: flex;
+  color: blue;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 16px;
+  position: fixed;
+  top: 90px;
+  right: 0px;
+  width: 450px;
+  @media screen and (hover: none) {
+    display: none!important;
+  }
+}
+
+input {
+  padding: 0!important;
+  background-color: none;
+}
+
+input:focus {
+  outline: none;
+  }
+
+a {
+  color:var(--color-a)!important;
+}
+
+.owner {
+    display: inherit!important;
+    width: 450px;
+    font-size: 16px;
+    margin-top: 25px;
+    float: right;
+    box-shadow: none;
+    padding-inline-start: 0!important;
+    @media screen and (hover: none) {
+      display: none!important;
+    }
+ }
