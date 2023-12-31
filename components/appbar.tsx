@@ -70,8 +70,6 @@ export const AppBar: React.FC = () => {
             <Links />
           </HStack>
           <Flex alignItems={'center'}>
-            <Menu>
-            </Menu>
           </Flex>
         </Flex>
       </Box>
