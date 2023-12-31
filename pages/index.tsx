@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, VStack, Grid, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, useDisclosure, NumberDecrementStepper } from '@chakra-ui/react';
 import { useGesture } from 'react-use-gesture';
 import { useSpring, animated } from 'react-spring';
-import { publicKey } from "@metaplex-foundation/umi";
 
 const url = `https://mainnet.helius-rpc.com/?api-key=${process.env.NEXT_PUBLIC_API_KEY}`;
 console.log(url)
@@ -343,7 +342,7 @@ const PageContent = () => {
         <Modal isOpen={isOwnerModalOpen} onClose={() => setIsOwnerModalOpen(false)}>
           <ModalBody className='owner'>
             <p>stiiks: {ownerData.totalStiiks}</p>
-            <p>solmatchs: {ownerData.totalSolmatches}</p>
+            <p>properties: {ownerData.totalSolmatches}</p>
             <p>hdi total: {ownerData.totalHDI}</p>
           </ModalBody>
         </Modal>
