@@ -25,6 +25,7 @@ interface NFTOwnership {
     stiiksCount: number;
     airPodsCount: number;
     airPodsProCount: number;
+    multiplier?: number;
   };
 }
 
@@ -47,7 +48,6 @@ const matchX = `╒╤══════╤╕
 │   ╱╲	 │
 │  ╱  ╲	 │
 └────────┘`;
-
 
 const has1 = match.replace('┢┷━━━━━━┷┪', `┢┷━┻━━━━┷┪`);
 const has2 = match.replace('┢┷━━━━━━┷┪', `┢┷━┻┻━━━┷┪`);
@@ -97,6 +97,43 @@ const PageContent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const mapRef = useRef(null);
   const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
+
+  const applyMultiplierToAdjacentBlocks = (ownershipMap: any) => {
+    const gridRows = 15;
+    const gridCols = 37;
+
+    const getBlockNumber = (row: any, col: any) => {
+      return (row * gridCols + col + 1).toString().padStart(3, '0');
+    };
+
+    const applyMultiplier = (row: any, col: any) => {
+      const blockNumber = getBlockNumber(row, col);
+      if (ownershipMap[blockNumber] && ownershipMap[blockNumber].owner) {
+        ownershipMap[blockNumber].multiplier = (ownershipMap[blockNumber].multiplier || 1) * 0.9;
+      }
+    };
+
+    for (let row = 0; row < gridRows; row++) {
+      for (let col = 0; col < gridCols; col++) {
+        const blockNumber = getBlockNumber(row, col);
+        if (!ownershipMap[blockNumber] || !ownershipMap[blockNumber].owner) {
+          // Check and apply multiplier to adjacent blocks
+          if (row > 0) applyMultiplier(row - 1, col); // up
+          if (row < gridRows - 1) applyMultiplier(row + 1, col); // down
+          if (col > 0) applyMultiplier(row, col - 1); // left
+          if (col < gridCols - 1) applyMultiplier(row, col + 1); // right
+        }
+      }
+    }
+
+    console.log("Ownership map after applying multipliers:", ownershipMap);
+  };
+
+  useEffect(() => {
+
+  }, []);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -179,10 +216,9 @@ const PageContent = () => {
         }
       });
 
-
+      applyMultiplierToAdjacentBlocks(ownershipMap);
       setNftOwnership(ownershipMap);
     };
-
 
     fetchData();
   }, []);
@@ -243,9 +279,12 @@ const PageContent = () => {
 
   const blocks = Array.from({ length: 37 * 15 }).map((_, index) => createMatchBox(index));
 
-  const calculateHDI = (stiiksCount: any, airPodsCount: any, airPodsProCount: any) => {
-    let multiplier = ((airPodsCount ? 1.5 * airPodsCount : 1) * (airPodsProCount ? 2 * airPodsProCount : 1));
-    return stiiksCount > 0 ? <>{Math.round((1000 / stiiksCount) * multiplier)}{airPodsCount ? <> (airpods multiplier)</> : ''}{airPodsProCount ? <> (airpods pro multiplier)</> : ''}</> : 'vacant';
+  const calculateHDI = (stiiksCount: number, airPodsCount: number, airPodsProCount: number, multiplier?: number) => {
+    console.log(`Calculating HDI: stiiksCount=${stiiksCount}, airPodsCount=${airPodsCount}, airPodsProCount=${airPodsProCount}, multiplier=${multiplier}`);
+
+    const baseMultiplier = ((airPodsCount ? 1.5 * airPodsCount : 1) * (airPodsProCount ? 2 * airPodsProCount : 1));
+    const totalMultiplier = baseMultiplier * (multiplier || 1); // Apply adjacent block multiplier if available
+    return stiiksCount > 0 ? <>{Math.round((1000 / stiiksCount) * totalMultiplier)}{airPodsCount ? <> (airpods: x 1.5)</> : ''}{airPodsProCount ? <> (airpods pro: x 2)</> : ''}{multiplier ? <> (surroundings: x {multiplier.toFixed(1)})</> : ''}</> : 'no data (vacant)';
   };
 
   const handleOwnerClick = (ownerAddress: any) => {
@@ -324,13 +363,14 @@ const PageContent = () => {
                 <>
                   <h2>solmatch #{selectedBlockNumber}</h2>
                   <p>owner: <button onClick={() => handleOwnerClick(selectedBlock.owner)} style={{ background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer' }}>
-  {shortenAddress(selectedBlock.owner)}
-</button></p>
+                    {shortenAddress(selectedBlock.owner)}
+                  </button></p>
                   <p>stiiks: {selectedBlock.stiiksCount}</p>
-                  <p>hdi: {calculateHDI(selectedBlock.stiiksCount, selectedBlock.airPodsCount, selectedBlock.airPodsProCount)}</p>
+                  <p>hdi: {calculateHDI(selectedBlock.stiiksCount, selectedBlock.airPodsCount, selectedBlock.airPodsProCount, selectedBlock.multiplier)}</p>
+
+
                 </>
-              ) : (
-                <p>burned :(</p>
+              ) : (<>burned properties decrease the surrounding hdi...</>
               )}
             </p>
           </ModalBody>

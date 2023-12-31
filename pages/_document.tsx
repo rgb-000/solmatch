@@ -16,7 +16,7 @@ export default function Document() {
         property="og:image"
       />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>suns cNFT machine</title>
+      <title>stiiks real estate simulator</title>
       <link rel="icon" href="/favicon-32x32.png" />
       <Head />
       <body>

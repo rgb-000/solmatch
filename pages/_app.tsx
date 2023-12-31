@@ -25,9 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
 );
   return (
     <>
-      <Head> 
-      </Head>
-      <style jsx global>
+       <style jsx global>
           {`
       html, body, main {
           background: var(--color-b); 

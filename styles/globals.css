@@ -259,3 +259,17 @@ a {
     max-height: 20px;
   }
  }
+
+ .unownedBlock:active {
+  border: 1px dashed;
+  position: relative;
+  margin:  -51.5px;
+  padding: 50px;
+  border-radius: 90px;
+ }
+
+ pre.burned {
+  position: fixed;
+  white-space:pre ;
+  max-width: 90px;
+ }
