@@ -89,7 +89,7 @@ async function fetchNFTData(method: string, params: any): Promise<NFTItem[]> {
 const PageContent = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isOwnerModalOpen, setIsOwnerModalOpen] = useState(false);
-  const [ownerData, setOwnerData] = useState({ ownerAddress: '', totalStiiks: 0, totalSolmatches: 0, totalHDI: 0 });
+  const [ownerData, setOwnerData] = useState({ ownerAddress: '', totalStiiks: 0, totalSolmatches: 0, totalHDI: 0, hdiExpression: '', });
   const [nftOwnership, setNftOwnership] = useState<NFTOwnership>({});
   const [selectedBlockNumber, setSelectedBlockNumber] = useState<string | null>(null);
   const [selectedBlock, setSelectedBlock] = useState<NFTOwnership[keyof NFTOwnership] | null>(null);
@@ -291,32 +291,36 @@ const PageContent = () => {
     handleOwnerData(ownerAddress); // Trigger handleOwnerData
   };
   const handleOwnerData = (ownerAddress: any) => {
-    // Initialize totals
     let totalStiiks = 0;
     let totalSolmatches = 0;
     let totalHDI = 0;
+    let hdiExpression = '';
 
-    // Iterate over nftOwnership to calculate totals
     Object.values(nftOwnership).forEach(ownership => {
       if (ownership.owner === ownerAddress) {
-        // Add the stiiks count to totalStiiks
         totalStiiks += ownership.stiiksCount;
-        console.log(ownership.stiiksCount)
-        console.log(ownership.airPodsCount)
-        console.log(ownership.airPodsProCount)
-
-        // Increment totalSolmatches for each solmatch
         totalSolmatches += 1;
-
-        // Calculate HDI considering AirPods and AirPods Pro
-        let multiplier = ((ownership.airPodsCount ? 1.5 * ownership.airPodsCount : 1) * (ownership.airPodsProCount ? 2 * ownership.airPodsProCount : 1));
+        let multiplier = ((ownership.airPodsCount ? 1.5 * ownership.airPodsCount : 1) * (ownership.airPodsProCount ? 2 * ownership.airPodsProCount : 1) * (ownership.multiplier ? ownership.multiplier : 1));
         totalHDI += ownership.stiiksCount > 0 ? Math.round((1000 / ownership.stiiksCount) * multiplier) : 0;
       }
     });
 
-    setOwnerData({ ownerAddress, totalStiiks, totalSolmatches, totalHDI });
+    if (totalHDI < 300) {
+      hdiExpression = 'simple';
+    } else if (totalHDI > 300 && totalHDI <= 1000) {
+      hdiExpression = 'so simple';
+    } else if (totalHDI > 1000 && totalHDI <= 3000) {
+      hdiExpression = 'shining simple';
+    } else if (totalHDI > 3000 && totalHDI <= 7000) {
+      hdiExpression = 'shining simple, so good';
+    }else if (totalHDI > 7000) {
+      hdiExpression = 'the best';
+    }
+
+    setOwnerData({ ownerAddress, totalStiiks, totalSolmatches, totalHDI, hdiExpression });
     setIsOwnerModalOpen(true);
   };
+
 
   function shortenAddress(address: any) {
     if (address.length > 10) {
@@ -343,9 +347,10 @@ const PageContent = () => {
           <ModalBody className='owner'>
             <p>stiiks: {ownerData.totalStiiks}</p>
             <p>properties: {ownerData.totalSolmatches}</p>
-            <p>hdi total: {ownerData.totalHDI}</p>
+            <p>hdi total: {ownerData.totalHDI} ({ownerData.hdiExpression})</p>
           </ModalBody>
         </Modal>
+
       </div>
 
       <div className="map" ref={mapRef} {...bind()} style={{ overflow: 'hidden', touchAction: 'none' }}>
@@ -365,7 +370,7 @@ const PageContent = () => {
                     {shortenAddress(selectedBlock.owner)}
                   </button></p>
                   <p>stiiks: {selectedBlock.stiiksCount}</p>
-                  <p>hdi: {calculateHDI(selectedBlock.stiiksCount, selectedBlock.airPodsCount, selectedBlock.airPodsProCount, selectedBlock.multiplier)}</p>
+                  <p>hdi: {calculateHDI(selectedBlock.stiiksCount, selectedBlock.airPodsCount, selectedBlock.airPodsProCount, selectedBlock.multiplier)} </p>
 
 
                 </>
