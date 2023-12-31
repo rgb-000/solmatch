@@ -309,14 +309,22 @@ const PageContent = () => {
       hdiExpression = '｡•́︿•̀｡';
     } else if (totalHDI > 1 && totalHDI <= 300) {
       hdiExpression = 'simple';
-    } else if (totalHDI > 300 && totalHDI <= 1000) {
+    } else if (totalHDI > 300 && totalHDI <= 800) {
       hdiExpression = 'so simple';
-    } else if (totalHDI > 1000 && totalHDI <= 3000) {
-      hdiExpression = 'shining simple';
-    } else if (totalHDI > 3000 && totalHDI <= 7000) {
-      hdiExpression = 'shining simple, so good';
-    }else if (totalHDI > 7000) {
-      hdiExpression = 'the best';
+    } else if (totalHDI > 800 && totalHDI <= 1600) {
+      hdiExpression = 'super simple';
+    } else if (totalHDI > 1600 && totalHDI <= 3000) {
+      hdiExpression = 'pleasantly simple';
+    } else if (totalHDI > 3000 && totalHDI <= 5000) {
+      hdiExpression = 'good as gold, simple as pie';
+    } else if (totalHDI > 5000 && totalHDI <= 7500) {
+      hdiExpression = 'shining simple, stunning good';
+    } else if (totalHDI > 7500 && totalHDI <= 10000) {
+      hdiExpression = 'fantastically good, wonderfully simple';
+    } else if (totalHDI > 10000 && totalHDI <= 13000) {
+      hdiExpression = 'goodness galore, simplicity supreme';
+    } else if (totalHDI > 13000) {
+      hdiExpression = 'simply the best, better than all the rest';
     }
 
     setOwnerData({ ownerAddress, totalStiiks, totalSolmatches, totalHDI, hdiExpression });
