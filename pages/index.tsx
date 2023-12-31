@@ -374,7 +374,7 @@ const PageContent = () => {
 
 
                 </>
-              ) : (<>burned properties decrease the surrounding hdi...</>
+              ) : (<>burned properties decrease the surrounding hdi (｡•́︿•̀｡)</>
               )}
             </p>
           </ModalBody>
