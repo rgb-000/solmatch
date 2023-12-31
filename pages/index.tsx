@@ -305,7 +305,9 @@ const PageContent = () => {
       }
     });
 
-    if (totalHDI < 300) {
+    if (totalHDI < 1) {
+      hdiExpression = '｡•́︿•̀｡';
+    } else if (totalHDI > 1 && totalHDI <= 300) {
       hdiExpression = 'simple';
     } else if (totalHDI > 300 && totalHDI <= 1000) {
       hdiExpression = 'so simple';
