@@ -112,6 +112,11 @@ pre {
   /* Firefox */
   -ms-user-select: none;
   /* IE 10+ */
+  @media screen and (hover: none) {
+    line-height: 0.66rem;
+    font-size: 10px;
+
+  }
 
 }
 .invisible {
