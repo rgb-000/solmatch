@@ -37,21 +37,21 @@ const Links = () => {
       <NavLink href='/'>
         <h1>stiiks real estate simulator pro</h1>
       </NavLink>
-      <HStack spacing={6}>
+      <HStack spacing={5}>
       <NavLink href='https://stiiks.xyz/'>
         <h2>stiiks.xyz</h2>
       </NavLink>
         <Link target='_blank' href='https://stiiks.social/'>
-          <img src="/social.png" style={{ height: '32px', imageRendering: 'pixelated'}}/>
+          <img src="/social.png" style={{ height: '26px', imageRendering: 'pixelated'}}/>
         </Link>
         <Link href='https://discord.gg/suns-studio'>
-          <img src="/discord.png" style={{ height: '30px' }}/>
+          <img src="/discord.png" style={{ height: '26px' }}/>
         </Link>
         <Link target='_blank' href='https://x.com/Stiiks_v2'>
-          <img src="/x.png" style={{ height: '30px' }}/>
+          <img src="/x.png" style={{ height: '26px' }}/>
           </Link>
         <Link target='_blank'  href='https://www.tensor.trade/trade/twitter'>
-          <img src="/tensor.png" style={{ height: '30px' }}/>
+          <img src="/tensor.png" style={{ height: '26px' }}/>
           </Link>
       </HStack>
     </Flex>

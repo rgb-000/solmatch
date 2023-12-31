@@ -73,7 +73,7 @@ margin: 120px 0;
 cursor: grab;
 position: fixed;
 padding: 30px;
-font-size: 16px;
+font-size: 14px;
 @media screen and (hover: none) {
   font-size: 12px!important;
 }
@@ -100,7 +100,7 @@ body {
 
 pre {
   font-family: var(--font-mono);
-  line-height: 0.99rem;
+  line-height: 0.95rem;
   margin: 0;
   padding: 0;
   gap: 0;
@@ -144,7 +144,7 @@ input#WalletDest::placeholder, input#WalletDest {
 .details {
   min-width: fit-content;
   margin: 0px 0px 0px 30px;
-  font-size: 16px;
+  font-size: 14px;
   position: fixed;
   background-color: var(--color-b);
   @media screen and (hover: none) {
@@ -205,11 +205,11 @@ input#WalletDest::placeholder, input#WalletDest {
   color: blue;
   flex-direction: column;
   align-items: flex-end;
-  font-size: 16px;
+  font-size: 14px;
   position: fixed;
-  top: 90px;
+  top: 85px;
   right: 0px;
-  width: 600px;
+  width: 60vw;
   @media screen and (hover: none) {
     display: none!important;
   }
@@ -230,9 +230,9 @@ a {
 
 .owner {
     display: inherit!important;
-    width: 600px;
-    font-size: 16px;
-    margin-top: 25px;
+    width: 60vw;
+    font-size: 14px;
+    margin-top: 20px;
     float: right;
     box-shadow: none;
     padding-inline-start: 0!important;
