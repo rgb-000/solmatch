@@ -4,7 +4,6 @@ import { useGesture } from 'react-use-gesture';
 import { useSpring, animated } from 'react-spring';
 
 const url = `https://mainnet.helius-rpc.com/?api-key=${process.env.NEXT_PUBLIC_API_KEY}`;
-console.log(url)
 
 interface NFTItem {
   ownership: {
