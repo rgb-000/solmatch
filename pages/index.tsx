@@ -178,49 +178,73 @@ const PageContent = () => {
           };
         }
       });
+
+      // Adjusted typing for airPodsCounts
+      interface AirPodsCounts {
+        [ownerAddress: string]: number;
+      }
+
+      const airPodsCounts: AirPodsCounts = {};
+
       stiiks.forEach(stiik => {
         const ownerAddress = stiik.ownership.owner;
-        if (matchCounts[ownerAddress]) {
-          let totalStiiks = stiiks.filter(s => s.ownership.owner === ownerAddress).length;
-          let matchesForOwner = Object.entries(ownershipMap).filter(([_, ownership]) => ownership.owner === ownerAddress);
-
-          // Distribute at least one stiik to each match (if available)
-          matchesForOwner.forEach(([blockNumber, ownership], index) => {
-            if (totalStiiks > 0) {
-              ownership.stiiksCount = 1;
-              totalStiiks--;
-
-              // Check for AirPods or AirPodsPro in stiik's attributes and apply to the current match
-              const attributes = stiik.content.metadata.attributes;
-              if (attributes && attributes[2] && attributes[2].value) {
-                if (attributes[2].value === "AirPods" && index === 0) {
-                  ownership.airPodsCount = 1;
-                } else if (attributes[2].value === "AirPodsPro" && index === 0) {
-                  ownership.airPodsProCount = 1;
-                }
-              }
-            } else {
-              ownership.stiiksCount = 0;
+        const attributes = stiik.content.metadata.attributes;
+        if (attributes && attributes[2]) {
+          const attributeValue = attributes[2].value;
+          if (attributeValue === "AirPods" || attributeValue === "AirPodsPro") {
+            if (!airPodsCounts[ownerAddress]) {
+              airPodsCounts[ownerAddress] = 0;
             }
-          });
-
-          // Distribute remaining stiiks
-          while (totalStiiks > 0) {
-            for (let i = 0; i < matchesForOwner.length && totalStiiks > 0; i++) {
-              let blockNumber = matchesForOwner[i % matchesForOwner.length][0];
-              ownershipMap[blockNumber].stiiksCount += 1;
-              totalStiiks--;
-            }
+            airPodsCounts[ownerAddress] += 1;
           }
         }
       });
+      
+      // Initialize and distribute both stiiks and AirPods
+        stiiks.forEach(stiik => {
+      const ownerAddress = stiik.ownership.owner;
+      if (matchCounts[ownerAddress]) {
+        let totalStiiks = stiiks.filter(s => s.ownership.owner === ownerAddress).length;
+        let totalAirPods = airPodsCounts[ownerAddress] || 0;
+        let matchesForOwner = Object.entries(ownershipMap).filter(([_, ownership]) => ownership.owner === ownerAddress);
 
-      applyMultiplierToAdjacentBlocks(ownershipMap);
-      setNftOwnership(ownershipMap);
-    };
+        matchesForOwner.forEach(([blockNumber, ownership]) => {
+          // Distribute stiiks
+          if (totalStiiks > 0) {
+            ownership.stiiksCount = 1;
+            totalStiiks--;
+          } else {
+            ownership.stiiksCount = 0;
+          }
+        });
 
-    fetchData();
-  }, []);
+        // Distribute remaining stiiks
+        while (totalStiiks > 0) {
+          for (let i = 0; i < matchesForOwner.length && totalStiiks > 0; i++) {
+            let blockNumber = matchesForOwner[i % matchesForOwner.length][0];
+            ownershipMap[blockNumber].stiiksCount += 1;
+            totalStiiks--;
+          }
+        }
+
+        // Distribute AirPods
+        matchesForOwner.forEach(([blockNumber, ownership]) => {
+          if (totalAirPods > 0) {
+            ownership.airPodsCount = 1;
+            totalAirPods--;
+          } else {
+            ownership.airPodsCount = 0;
+          }
+        });
+      }
+    });
+
+    applyMultiplierToAdjacentBlocks(ownershipMap);
+    setNftOwnership(ownershipMap);
+  };
+
+  fetchData();
+}, []);
 
   const createMatchBox = (index: number) => {
     const blockNumber = (index + 1).toString().padStart(3, '0');
@@ -278,13 +302,33 @@ const PageContent = () => {
 
   const blocks = Array.from({ length: 37 * 15 }).map((_, index) => createMatchBox(index));
 
-  const calculateHDI = (stiiksCount: number, airPodsCount: number, airPodsProCount: number, multiplier?: number) => {
+  const calculateHDI = (stiiksCount: any, airPodsCount: any, airPodsProCount: any, multiplier: any) => {
     console.log(`Calculating HDI: stiiksCount=${stiiksCount}, airPodsCount=${airPodsCount}, airPodsProCount=${airPodsProCount}, multiplier=${multiplier}`);
 
     const baseMultiplier = ((airPodsCount ? 1.5 * airPodsCount : 1) * (airPodsProCount ? 2 * airPodsProCount : 1));
-    const totalMultiplier = baseMultiplier * (multiplier || 1); // Apply adjacent block multiplier if available
-    return stiiksCount > 0 ? <>{Math.round((1000 / stiiksCount) * totalMultiplier)}{airPodsCount ? <> (airpods: x 1.5)</> : ''}{airPodsProCount ? <> (airpods pro: x 2)</> : ''}{multiplier ? <> (surroundings: x {multiplier.toFixed(1)})</> : ''}</> : 'no data (vacant)';
+    let totalMultiplier = baseMultiplier * (multiplier || 1); // Apply adjacent block multiplier if available
+
+    // Apply coupleMultiplier if stiiksCount is 2
+    let coupleMultiplier = 1;
+    let coupleText = '';
+    if (stiiksCount === 2) {
+      coupleMultiplier = 1;
+      coupleText = '';
+    }
+
+    totalMultiplier *= coupleMultiplier;
+
+    return stiiksCount > 0 ? (
+      <>
+        {Math.round((1000 / stiiksCount * (stiiksCount > 1 ? 2 : 1)) * totalMultiplier)}
+        {airPodsCount ? <> (airpods: x 2)</> : ''}
+        {airPodsProCount ? <> (: x 2)</> : ''}
+        {multiplier ? <> (surroundings: x {multiplier.toFixed(1)})</> : ''}
+        {coupleText}
+      </>
+    ) : 'no data (vacant)';
   };
+
 
   const handleOwnerClick = (ownerAddress: any) => {
     setSearchQuery(ownerAddress); // Set the owner's name in the search query
